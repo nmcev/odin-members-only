@@ -1,0 +1,25 @@
+<% if (typeof errors !="undefined" ) { %>
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            <% errors.forEach(function(error) { %>
+                <li class="
+                text-red-500 bg-red-100 p-2 rounded my-2
+                ">
+                    <%= error.msg %>
+                </li>
+                <% }); %>
+        </ul>
+    </div>
+    <% } %>
+
+        <% if (success_msg !='' ) { %>
+            <div class="bg-green-100 text-green-500 p-2 rounded my-2" role="alert">
+                <%= success_msg %>
+            </div>
+            <% } %>
+
+                <% if (error_msg !='' ) { %>
+                    <div class= "text-red-500 bg-red-100 p-2 rounded my-2" role="alert">
+                        <%= error_msg %>
+                    </div>
+                    <% } %>
