@@ -1,6 +1,7 @@
 const passport = require("passport");
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs")
+const { body, validationResult } = require("express-validator")
 
 module.exports = {
     homePage_get: function (req, res, next) {
@@ -31,81 +32,67 @@ module.exports = {
             failureFlash: true
         })(req, res, next)
 
+        req.flash('error_msg', 'Invalid username or password')
     },
     register_get: function (req, res, next) {
         res.render('register')
     },
-    register_post: function (req, res, next) {
-        // Handle registration
+    register_post: [
+        body('username')
+            .trim()
+            .isLength({ min: 3 })
+            .escape()
+            .withMessage('Username must be at least 3 characters'),
+        body('email')
+            .isEmail()
+            .withMessage('Please enter a valid email'),
 
-        const { username, email, password, confirmedPassword } = req.body;
-        const errors = [];
+        body('password')
+            .isLength({ min: 6 })
+            .trim()
+            .withMessage('Password must be at least 6 characters'),
+        body('confirmedPassword').custom((value, { req }) => {
+            if (value !== req.body.password) {
+                throw new Error('Passwords do not match')
+            }
+            return true
+        }),
+         async function (req, res, next) {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                res.render('register', { errors: errors.array() })
+            } else {
+                const user =  await User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] })
+                if (user) {
+                    req.flash('error_msg', 'Username or email already exists')
+                    return res.redirect('/register')
+                }
 
-        if (!username || !email || !password || !confirmedPassword) {
-            errors.push({ msg: "Please fill in all fields!" })
-        }
-
-        if (password !== confirmedPassword) {
-            errors.push({ msg: "Passwords don't match!" })
-        }
-
-        if (password.length < 6) {
-            errors.push({ msg: "Password is too short, at least should be 6 characters" })
-        }
-
-        if (errors.length > 0) {
-
-            res.render("register", {
-                errors,
-                username,
-                email,
-                password,
-                confirmedPassword
-            })
-        } else {
-
-            User.findOne({ email: email })
-                .then(user => {
-                    if (user) {
-                        errors.push({ msg: "Email is already registered" })
-                        res.render("register", {
-                            errors,
-                            username,
-                            email,
-                            password,
-                            confirmedPassword
-                        })
-                    }
-                    else {
-                        const newUser = new User({
-                            username: req.body.username,
-                            email: req.body.email,
-                            password: req.body.password
-                        })
-
-
-                        bcryptjs.genSalt(10, (err, salt) => {
-                            bcryptjs.hash(password, salt, async (err, hash) => {
-                                try {
-                                    newUser.password = hash;
-                                    await newUser.save()
-
-                                    req.flash('success_msg', "You are now registered and can log in")
-                                    res.redirect('/login')
-                                } catch (err) {
-                                    console.log(err)
-                                }
-                            })
-                        })
-
-                    }
+                const newUser = new User({
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: req.body.password
                 })
-        }
 
-    },
+                bcryptjs.genSalt(10, (err, salt) => {
+                    bcryptjs.hash(newUser.password, salt, (err, hash) => {
+                        if (err) throw err
+                        newUser.password = hash
+                        newUser.save()
+                            .then(user => {
+                                req.flash('success_msg', 'You are now registered and can log in!')
+                                res.redirect('/login')
+                            })
+                            .catch(err => console.log(err))
+                    })
+                })
+
+            }
+        }
+    ],
     logout_get: function (req, res, next) {
         req.logout(() => {
-            req.flash('success_msg', "You logged out")
+            req.flash('success_msg', "You logged out successfully!")
             res.redirect('/login')
         })
     }
