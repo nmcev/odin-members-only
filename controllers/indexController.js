@@ -2,6 +2,7 @@ const passport = require("passport");
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs")
 const { body, validationResult } = require("express-validator")
+require('dotenv').config()
 
 module.exports = {
     homePage_get: function (req, res, next) {
@@ -60,7 +61,7 @@ module.exports = {
         async function (req, res, next) {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                res.render('register', { errors: errors.array(), title: 'Register'})
+                res.render('register', { errors: errors.array(), title: 'Register' })
             } else {
                 const user = await User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] })
                 if (user) {
@@ -95,5 +96,22 @@ module.exports = {
             req.flash('success_msg', "You logged out successfully!")
             res.redirect('/login')
         })
+    },
+    membership_get: function (req, res, next) {
+        res.render('membership', { title: "membership" })
+    },
+    membership_post:  async function (req, res, next) {
+        const { membershipCode } = req.body
+
+        if (membershipCode === process.env.MEMBERSHIP_CODE) {
+            const user = await User.findOneAndUpdate({ _id: req.user._id }, { membership: true })
+            console.log(user)
+            req.flash('success_msg', 'You are now a member!')
+            return res.redirect('/dashboard')
+        }
+
+        req.flash('error_msg', 'Invalid code')
+        res.redirect('/dashboard/membership')
+
     }
 }
