@@ -21,4 +21,9 @@ router.post('/register', indexController.register_post)
 //  Handle logout
 
 router.get('/logout', indexController.logout_get)
+
+// Handle membership
+router.get('/dashboard/membership', ensureAuthenticated, indexController.membership_get)
+
+router.post('/dashboard/membership', indexController.membership_post)
 module.exports = router;
