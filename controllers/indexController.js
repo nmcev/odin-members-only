@@ -5,13 +5,13 @@ const { body, validationResult } = require("express-validator")
 
 module.exports = {
     homePage_get: function (req, res, next) {
-        res.render('index')
+        res.render('index', { title: 'Home' })
     },
     dashboard_get: function (req, res, next) {
-        res.render('dashboard', { username: req.user.username })
+        res.render('dashboard', { username: req.user.username, title: 'Dashboard' })
     },
     login_get: function (req, res, next) {
-        res.render('login')
+        res.render('login', { title: 'Login' })
     },
     login_post: function (req, res, next) {
 
@@ -35,7 +35,7 @@ module.exports = {
         req.flash('error_msg', 'Invalid username or password')
     },
     register_get: function (req, res, next) {
-        res.render('register')
+        res.render('register', { title: 'Register' })
     },
     register_post: [
         body('username')
@@ -57,12 +57,12 @@ module.exports = {
             }
             return true
         }),
-         async function (req, res, next) {
+        async function (req, res, next) {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                res.render('register', { errors: errors.array() })
+                res.render('register', { errors: errors.array(), title: 'Register'})
             } else {
-                const user =  await User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] })
+                const user = await User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] })
                 if (user) {
                     req.flash('error_msg', 'Username or email already exists')
                     return res.redirect('/register')
