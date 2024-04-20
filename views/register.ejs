@@ -1,32 +1,41 @@
 <div class="flex justify-center items-center h-screen">
     <div class="w-full max-w-lg">
         <%- include('partials/messages') %>
-        <form action="/register" method="POST" class="bg-slate-50 shadow-lg rounded px-8 pt-6 pb-8 mb-4">
+            <form action="/register" method="POST" class="bg-slate-50 shadow-md rounded-md px-8 pt-6 pb-8 mb-4">
 
-            <div class="mb-4 flex flex-col space-y-2">
-                <label for="username" class="block text-gray-700 text-sm font-bold">Username</label>
-                <input type="text" name="username" id="username" placeholder="Username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            
-            <div class="mb-4 flex flex-col space-y-2">
-                <label for="email" class="block text-gray-700 text-sm font-bold">email</label>
-                <input type="email" name="email" id="email" placeholder="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
+                <div class="mb-4 flex flex-col space-y-2">
+                    <label for="username" class="block text-gray-700 text-sm ">Username</label>
+                    <input type="text" name="username" id="username"
+                        class="shadow appearance-none border rounded-lg  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
 
-            <div class="mb-4 flex flex-col space-y-2">
-                <label for="password" class="block text-gray-700 text-sm font-bold">Password</label>
-                <input type="password" name="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
+                <div class="mb-4 flex flex-col space-y-2">
+                    <label for="email" class="block text-gray-700 text-sm ">email</label>
+                    <input type="email" name="email" id="email" "
+                        class=" shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight
+                        focus:outline-none focus:shadow-outline">
+                </div>
 
-            <div class="mb-4 flex flex-col space-y-2">
-                <label for="confirmedPassword" class="block text-gray-700 text-sm font-bold">Confirm Password</label>
-                <input type="password" name="confirmedPassword" id="confirmedPassword" placeholder="Confirm Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
+                <div class="flex space-x-6">
+                    <div class="mb-4 flex flex-col space-y-2">
+                        <label for="password" class="block text-gray-700 text-sm ">Password</label>
+                        <input type="password" name="password" id="password"
+                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
 
-            <div class="flex items-center justify-between">
-                <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Register</button>
-                <a href="/login" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Login</a>
-            </div>
-        </form>
+                    <div class="mb-4 flex flex-col space-y-2">
+                        <label for="confirmedPassword" class="block text-gray-700 text-sm ">Confirm
+                            Password</label>
+                        <input type="password" name="confirmedPassword" id="confirmedPassword"
+                            class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit"
+                        class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">Register</button>
+                    <a href="/login"
+                        class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Login</a>
+                </div>
+            </form>
     </div>
 </div>
