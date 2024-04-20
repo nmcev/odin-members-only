@@ -26,4 +26,9 @@ router.get('/logout', indexController.logout_get)
 router.get('/dashboard/membership', ensureAuthenticated, indexController.membership_get)
 
 router.post('/dashboard/membership', indexController.membership_post)
+
+// Handle create Post
+router.get('/dashboard/createPost', ensureAuthenticated, indexController.createPost_get)
+router.post('/dashboard/createPost', indexController.createPost_post)
+
 module.exports = router;
