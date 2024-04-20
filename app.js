@@ -9,7 +9,7 @@ const passport = require('passport')
 const mongoose = require('mongoose')
 const { debug } = require('console')
 const flash = require("connect-flash")
-
+const Post = require('./models/Post')
 const indexRouter = require('./routes/index');
 
 require('./auth/index')(passport)
@@ -54,13 +54,26 @@ app.use(passport.session())
 // connect to flash
 app.use(flash())
 
+const defaultAvatar = process.env.AVATAR
+
 // global variables
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   res.locals.success_msg = req.flash('success_msg')
   res.locals.error_msg = req.flash('error_msg')
   res.locals.error = req.flash('error')
   res.locals.user = req.user || null
+  res.locals.userAvatar = defaultAvatar
 
+  if (req.user) {
+    res.locals.membership = req.user.membership
+    // get the posts from the user
+    const populatedQuery = await req.user.populate('posts')
+    console.log(populatedQuery)
+    res.locals.userPosts = populatedQuery.posts
+  }
+
+  const allPosts = await Post.find().populate('user')
+  res.locals.allPosts = allPosts
   next()
 })
 
