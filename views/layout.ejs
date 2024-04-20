@@ -34,13 +34,16 @@
                     <li>
                         <a href="/" class="font-bold">Posts</a>
                     </li>
-                    
+
                     <% if(user===null) { %>
                         <li>
-                            <a href="/login" class="font-bold">Login</a>
+
+                            <a href="/login" class="font-bold flex items-center gap-2"><i
+                                    class="fa-solid fa-arrow-right-to-bracket"></i>Login</a>
                         </li>
                         <li>
-                            <a href="/register" class="font-bold">Register</a>
+                            <a href="/register" class="font-bold flex items-center gap-2"> <i
+                                    class="fa-solid fa-user-plus"></i> Register</a>
                         </li>
                         <% } %>
 
