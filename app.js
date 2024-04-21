@@ -68,7 +68,6 @@ app.use(async (req, res, next) => {
     res.locals.membership = req.user.membership
     // get the posts from the user
     const populatedQuery = await req.user.populate('posts')
-    console.log(populatedQuery)
     res.locals.userPosts = populatedQuery.posts
   }
 
