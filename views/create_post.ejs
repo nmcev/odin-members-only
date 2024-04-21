@@ -1,0 +1,35 @@
+<div class="flex justify-center items-center h-screen">
+    <div class="w-full max-w-lg">
+        <%- include('partials/messages') %>
+
+            <h1 class="font-bold text-2xl text-left mt-10 mb-5  text-blue-600">
+                Create Post
+            </h1>
+            <form action="/dashboard/createPost" method="POST"
+                class="bg-slate-50 shadow-lg rounded px-8 pt-6 pb-8 mb-4">
+
+                <div class="mb-4 flex flex-col space-y-2">
+                    <label for="title" class="block text-gray-700 text-sm font-bold">title</label>
+                    <input type="text" name="postTitle" id="title"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <!-- make a field for the post text  -->
+                <!-- remove the sizeable from the textarea -->
+
+                <div class="mb-4 flex flex-col space-y-2">
+                    <label for="body" class="block text-gray-700 text-sm font-bold">Text</label>
+                    <textarea name="postContent" id="body"
+                        class="shadow appearance-none border rounded w-full resize-none py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        style="height: 150px;"></textarea>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button type="submit"
+                        class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Post
+                    </button>
+
+                </div>
+            </form>
+    </div>
+</div>
