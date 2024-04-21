@@ -19,9 +19,14 @@
                         <div class="border p-4 rounded-md max-w-xl mx-auto">
                             <div class="flex items-center">
                                 <img src="<%= userAvatar %>" alt="avatar" class="w-12 h-12 object-cover rounded-full">
-                                <h3 class="font-bold text-md ml-4">
-                                    <%= user.username %>
-                                </h3>
+                                <div class="flex flex-col justify-center ml-4">
+                                    <h3 class="font-bold text-md">
+                                        <%= user.username %>
+                                    </h3>
+                                    <small>
+                                        <%= post.postedTime %>
+                                    </small>
+                                </div>
                             </div>
 
                             <h2 class="text-xl font-bold mt-4">
