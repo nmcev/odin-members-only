@@ -1,19 +1,44 @@
-
 <div class="container mx-auto">
   <h1 class="text-4xl text-gray-700 font-bold text-center mt-8">Posts</h1>
-  <div class="grid grid-cols-3 gap-4 mt-8">
-    <% if (typeof posts != "undefined") { %>
-      <% posts.forEach(function(post) { %>
-        <div class="border p-4">
-          <h2 class="text-xl font-bold">
-            <%= post.title %>
-          </h2>
-          <p>
-            <%= post.body %>
-          </p>
-        </div>
-        <% }); %>
-          <% } else { %>
-            <h2 class="text-xl font-bold text-center">No posts yet</h2>
-            <% } %>
+  <div class="mt-8">
+    <% if (typeof allPosts !="undefined" && allPosts.length> 0) { %>
+      <div class="space-y-6">
+        <% allPosts.forEach(function(post) { %>
+          <div class="border p-4 rounded-md max-w-xl mx-auto">
+            <div class="flex items-center">
+              <img src="<%= userAvatar %>" alt="avatar" class="w-12 h-12 object-cover rounded-full">
+              <% if (user && membership) { %>
+                <div class="flex flex-col justify-center ml-4">
+                  <h3 class="font-bold text-md">
+                    <%= post.user.username %>
+                  </h3>
+                  <small>
+                    <%= post.postedTime %>
+                  </small>
+                </div>
+                <% } else { %>
+                  <div class="flex flex-col justify-center ml-4">
+                    <h3 class="font-bold text-md">
+                      Anonymous
+                    </h3>
+                    <p class="text-xs">Membership required to view user</p>
+                    </small>
+                  </div>
+                  <% } %>
+            </div>
+
+            <h2 class="text-xl font-bold mt-4">
+              <%= post.title %>
+            </h2>
+            <p class="mt-2">
+              <%= post.content.replace(/'/g, '\\\'') %>
+            </p>
+
+          </div>
+          <% }); %>
+      </div>
+      <% } else { %>
+        <h2 class="text-xl font-bold text-center mt-8">No posts yet</h2>
+        <% } %>
   </div>
+</div>
