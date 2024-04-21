@@ -1,7 +1,9 @@
 const passport = require("passport");
 const User = require("../models/User");
+const Post = require("../models/Post");
 const bcryptjs = require("bcryptjs")
-const { body, validationResult } = require("express-validator")
+const { body, validationResult } = require("express-validator");
+
 require('dotenv').config()
 
 module.exports = {
@@ -100,7 +102,7 @@ module.exports = {
     membership_get: function (req, res, next) {
         res.render('membership', { title: "membership" })
     },
-    membership_post:  async function (req, res, next) {
+    membership_post: async function (req, res, next) {
         const { membershipCode } = req.body
 
         if (membershipCode === process.env.MEMBERSHIP_CODE) {
@@ -113,5 +115,39 @@ module.exports = {
         req.flash('error_msg', 'Invalid code')
         res.redirect('/dashboard/membership')
 
-    }
+    },
+    createPost_get: function (req, res, next) {
+        res.render('create_post', { title: 'Create Post' })
+    },
+
+    createPost_post: [
+        body('postTitle')
+            .trim()
+            .isLength({ min: 2 })
+            .escape()
+            .withMessage('Title must be at least 2 characters'),
+        body('postContent')
+            .isLength({ min: 2 })
+            .trim()
+            .withMessage('Content must be at least 2 characters'),
+        async function (req, res, next) {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                res.render('create_post', { errors: errors.array(), title: 'Create Post' })
+            } else {
+                const newPost = new Post({
+                    title: req.body.postTitle,
+                    content: req.body.postContent,
+                    timestamp: new Date(),
+                    user: req.user._id
+                })
+
+                await newPost.save();
+                await User.findOneAndUpdate({ _id: req.user._id }, { $push: { posts: newPost._id } })
+                req.flash('success_msg', 'Post created successfully!')
+                res.redirect('/dashboard')
+            }
+        }
+
+    ]
 }
