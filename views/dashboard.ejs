@@ -6,6 +6,31 @@
         <h3 class="text-lg font-bold mt-4">Membership Status</h3>
         <h4 class="text-sm text-gray-500">Membership: <%= membership ? "Active" : "Inactive" %>
         </h4>
+
+        <div class="my-4">
+            <% if (!membership) { %>
+                <a href="/dashboard/membership"
+                    class="mr-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Membership</a>
+                <% } else{ %>
+                    <a href="/dashboard/admin"
+                        class="mr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        An admin </a>
+                    <% } %>
+
+
+                        <button
+                            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            <a href="/dashboard/createPost">Create
+                                Post
+                            </a>
+                        </button>
+
+                        <button
+                            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            <a href='/logout'>Logout</a>
+                        </button>
+        </div>
+
         <div class="mt-8 divide-y">
 
             <h3 class="text-lg font-bold">Your Posts</h3>
@@ -53,25 +78,4 @@
                     <% } %>
         </div>
 
-        <div class="mt-8">
-            <% if (!membership) { %>
-                <a href="/dashboard/membership"
-                    class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Membership</a>
-                <% } else{ %>
-                    <a href="/dashboard/admin"
-                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        An admin </a>
-                    <% } %>
-        </div>
-
-
-        <div class="my-4">
-            <a href="/dashboard/createPost"
-                class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
-                Post</a>
-            <button
-                class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                <a href='/logout'>Logout</a>
-            </button>
-        </div>
 </div>
