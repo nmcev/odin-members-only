@@ -68,10 +68,10 @@ app.use(async (req, res, next) => {
     res.locals.membership = req.user.membership
     // get the posts from the user
     const populatedQuery = await req.user.populate('posts')
-    res.locals.userPosts = populatedQuery.posts
+    res.locals.userPosts = populatedQuery.posts.reverse()
   }
 
-  const allPosts = await Post.find().populate('user')
+  const allPosts = await Post.find().populate('user').sort({ timestamp: -1 })
   res.locals.allPosts = allPosts
   next()
 })
