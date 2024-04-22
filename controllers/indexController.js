@@ -149,5 +149,36 @@ module.exports = {
             }
         }
 
-    ]
+    ],
+    admin_get: function (req, res, next) {
+        res.render('admin', { title: 'Admin' })
+    },
+    admin_post: async function (req, res, next) {
+        const { adminCode } = req.body
+
+        if (adminCode === process.env.ADMIN_CODE) {
+            await User.findOneAndUpdate({ _id: req.user._id }, { admin: true })
+            req.flash('success_msg', 'You are now an admin!')
+            return res.redirect('/dashboard')
+        }
+
+        req.flash('error_msg', 'Invalid code')
+        res.redirect('/dashboard/admin')
+    },
+    deletePost_post: async function (req, res, next) {
+        const { postId } = req.body
+
+        console.log(postId)
+
+        await Post.findOneAndDelete({ _id: postId })
+        await User.findOneAndUpdate({ _id: req.user._id }, { $pull: { posts: postId } })
+        req.flash('success_msg', 'Post deleted successfully!')
+
+        if (req.path === '/dashboard') {
+            return res.redirect('/dashboard')
+        }
+        else {
+            return res.redirect('/')
+        }
+    }
 }

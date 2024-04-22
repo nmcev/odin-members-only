@@ -31,4 +31,11 @@ router.post('/dashboard/membership', indexController.membership_post)
 router.get('/dashboard/createPost', ensureAuthenticated, indexController.createPost_get)
 router.post('/dashboard/createPost', indexController.createPost_post)
 
+// Handle Admin 
+router.get('/dashboard/admin', ensureAuthenticated, indexController.admin_get)
+router.post('/dashboard/admin', indexController.admin_post)
+
+// Handle delete post
+router.post('/deletePost', indexController.deletePost_post)
+
 module.exports = router;

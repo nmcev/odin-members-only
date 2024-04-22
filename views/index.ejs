@@ -19,11 +19,11 @@
                 <% } else { %>
                   <div class="flex flex-col justify-center ml-4">
                     <h3 class="font-bold text-md">
-                      <% if (user && user.username === post.user.username) { %>
+                      <% if (user && user.username===post.user.username) { %>
                         <%= user.username %>
-                        <% } else { %>
-                          Anonymous
-                          <% } %>
+                          <% } else { %>
+                            Anonymous
+                            <% } %>
                     </h3>
                     <p class="text-xs">Membership required to view user</p>
                     </small>
@@ -38,6 +38,15 @@
               <%= post.content %>
             </p>
 
+            <% if (user && user.admin) { %>
+              <form action="/deletePost" method="post">
+                <input type="hidden" name="postId" value="<%= post._id %>">
+                <button type="submit"
+                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </form>
+              <% } %>
           </div>
           <% }); %>
       </div>
