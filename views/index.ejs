@@ -1,14 +1,14 @@
 <div class="container mx-auto">
-  <h1 class="text-4xl text-gray-700 font-bold text-center mt-8">Posts</h1>
+  <h1 class="text-4xl text-gray-700 font-bold text-center mt-8 max-sm:text-2xl">Posts</h1>
   <div class="mt-8 mb-8">
     <% if (typeof allPosts !="undefined" && allPosts.length> 0) { %>
       <div class="space-y-6">
         <% allPosts.forEach(function(post) { %>
-          <div class="border p-4 rounded-md max-w-xl mx-auto">
+          <div class="border p-4 rounded-md max-w-xl mx-auto max-md:mx-6">
             <div class="flex items-center">
               <img src="<%= userAvatar %>" alt="avatar" class="w-12 h-12 object-cover rounded-full">
               <% if (user && membership) { %>
-                <div class="flex flex-col justify-center ml-4">
+                <div class="flex flex-col justify-center ml-4 ">
                   <h3 class="font-bold text-md">
                     <%= post.user.username %>
                   </h3>
@@ -31,10 +31,10 @@
                   <% } %>
             </div>
 
-            <h2 class="text-xl font-bold mt-4">
+            <h2 class="text-xl font-bold mt-4 max-sm:text-lg">
               <%= post.title %>
             </h2>
-            <p class="mt-2">
+            <p class="mt-2 max-sm:text-sm ">
               <%= post.content %>
             </p>
 
