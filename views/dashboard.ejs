@@ -1,13 +1,20 @@
 <div class="container mx-auto">
     <%- include('./partials/messages.ejs') %>
-        <h1 class="text-4xl text-gray-700 font-bold  mt-8">Dashboard</h1>
-        <h2 class="text-xl text-gray-700 font-bold mt-4">Welcome <%= user.username %>
+        <h1 class="text-4xl text-gray-700 font-bold  mt-8 max-md:ml-4 max-sm:text-2xl">Dashboard</h1>
+        <h2 class="text-xl text-gray-700 font-bold mt-4 max-md:ml-6 max-sm:text-base">Welcome <%= user.username %>
         </h2>
-        <h3 class="text-lg font-bold mt-4">Membership Status</h3>
-        <h4 class="text-sm text-gray-500">Membership: <%= membership ? "Active" : "Inactive" %>
-        </h4>
+        <h3 class="text-lg max-sm:text-base font-bold mt-2  max-md:ml-6">Membership Status:
+            <span class="text-green-500
+            font-normal text-sm max-md:ml-2
+            ">
+                <%= membership ? "Active" : "Inactive" %>
+            </span>
+        </h3>
 
-        <div class="my-4">
+
+        <div class="my-4 
+        max-md:ml-6 max-sm:text-sm max-sm:mt-2
+        ">
             <% if (!membership) { %>
                 <a href="/dashboard/membership"
                     class="mr-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Membership</a>
@@ -31,9 +38,9 @@
                         </button>
         </div>
 
-        <div class="mt-8 divide-y">
+        <div class="mt-8 divide-y ">
 
-            <h3 class="text-lg font-bold">Your Posts</h3>
+            <h3 class="text-lg font-bold  max-md:ml-8">Your Posts</h3>
             <h4 class="text-sm text-gray-500"></h4>
 
         </div>
@@ -41,7 +48,7 @@
             <% if (typeof userPosts !="undefined" && userPosts.length> 0) { %>
                 <div class="space-y-6">
                     <% userPosts.forEach(function(post) { %>
-                        <div class="border p-4 rounded-md max-w-xl mx-auto">
+                        <div class="border p-4 rounded-md max-w-xl mx-auto max-md:mx-6 max-sm:text-sm">
                             <div class="flex items-center">
                                 <img src="<%= userAvatar %>" alt="avatar" class="w-12 h-12 object-cover rounded-full">
                                 <div class="flex flex-col justify-center ml-4">
