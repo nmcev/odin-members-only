@@ -18,7 +18,7 @@
             <% if (!membership) { %>
                 <a href="/dashboard/membership"
                     class="mr-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Membership</a>
-                <% } else{ %>
+                <% } else if (!admin){ %>
                     <a href="/dashboard/admin"
                         class="mr-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         An admin </a>

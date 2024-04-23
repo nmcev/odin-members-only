@@ -66,6 +66,7 @@ app.use(async (req, res, next) => {
 
   if (req.user) {
     res.locals.membership = req.user.membership
+    res.locals.admin = req.user.admin
     // get the posts from the user
     const populatedQuery = await req.user.populate('posts')
     res.locals.userPosts = populatedQuery.posts.reverse()
